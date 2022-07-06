@@ -79,7 +79,7 @@ router.post('/',async (req,res,next)=>{
             from: 'keja.app@outlook.com',
             to: email,
             subject: 'Welcome to our Keja Community ',
-            text:`Click the link to complete verifying your account link: http://localhost:3000/verify/${email}`
+            text:`Click the link to complete verifying your account link: http://www.keja.app/verify/${email}`
         };
 
         transporter.sendMail(mailOptions,
