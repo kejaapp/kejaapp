@@ -20,8 +20,9 @@ const editProperty = require('./routes/editProperty.js');
 const deleteProperty = require('./routes/deleteProperty.js');
 const deleteUser = require('./routes/deleteUser.js');
 
+const uri = 'https://www.keja.app/'
 app.use(cors(
-    {credentials:true, origin:'https://www.keja.app/'}
+    {credentials:true, origin: uri}
 ));
 
 /*
