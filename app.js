@@ -22,7 +22,7 @@ const deleteUser = require('./routes/deleteUser.js');
 
 const uri = 'https://www.keja.app'
 app.use(cors(
-    {credentials:true, origin: uri}
+    {credentials:true, origin: uri || 'http://localhost:3000'}
 ));
 
 /*
