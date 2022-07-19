@@ -36,7 +36,7 @@ const dev = ()=>{
 
 app.use(cors(
     {credentials:true, 
-    origin: dev()}
+    origin: 'https://www.keja.app'}
 ));
 
 /*
