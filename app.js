@@ -19,10 +19,24 @@ const getlistedproperties = require('./routes/getlistedproperties.js');
 const editProperty = require('./routes/editProperty.js');
 const deleteProperty = require('./routes/deleteProperty.js');
 const deleteUser = require('./routes/deleteUser.js');
+const reportProperty = require('./routes/reportProperty.js');
+const addReview = require('./routes/addReview.js');
+const booking = require('./routes/booking.js');
 
-const uri = 'https://www.keja.app'
+const dev = ()=>{
+    let status = 'live';
+    
+    if (status === 'development'){
+        return 'http://localhost:3000'
+    }else{
+        return 'https://www.keja.app'
+    }
+    
+}
+
 app.use(cors(
-    {credentials:true, origin: uri || 'http://localhost:3000'}
+    {credentials:true, 
+    origin: dev()}
 ));
 
 /*
@@ -38,13 +52,18 @@ app.use('/api/getuser',getUser);
 app.use('/api/verify',verifyuser);
 //delete user account
 app.use('/api/deleteuser',deleteUser)
-
+//report listing
+app.use('/api/reportproperty',reportProperty)
+//add review
+app.use('/api/addreview',addReview)
+//book apartment
+app.use('/api/bookapartment',booking)
 
 /*
     Listing a property Apis
 */
 //create listing account
-app.use('/api/createlitingaccount',createlistingacc);
+app.use('/api/createlistingaccount',createlistingacc);
 //login listing account
 app.use('/api/listinglogin',listinglogin);
 //getlistedproperties foe each specific lister

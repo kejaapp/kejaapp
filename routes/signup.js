@@ -9,25 +9,21 @@ const sgMail = require('@sendgrid/mail');
 
 require('dotenv').config();
 
-sgMail.setApiKey(process.env.SENDGRID_API);
-
-
-
 let router = express.Router()
 
 router.post('/',async (req,res,next)=>{
-    // let transporter = nodemailer.createTransport({
-    //     host: "smtp-mail.outlook.com", // hostname
-    //     secureConnection: false, // TLS requires secureConnection to be false
-    //     port: 587, // port for secure SMTP
-    //     tls: {
-    //     ciphers:'SSLv3'
-    //     },
-    //     auth: {
-    //         user: 'keja.app@outlook.com',
-    //         pass: 'nickelodeon@77'
-    //     }
-    // });
+    let transporter = nodemailer.createTransport({
+        host: "smtp-mail.outlook.com", // hostname
+        secureConnection: true, // TLS requires secureConnection to be false
+        port: 587, // port for secure SMTP
+        tls: {
+        ciphers:'SSLv3'
+        },
+        auth: {
+            user: 'keja.app@outlook.com',
+            pass: 'nickelodeon@77'
+        }
+    });
 
     //get email,password,name from req.body
     const { user } = req.body;
@@ -35,7 +31,7 @@ router.post('/',async (req,res,next)=>{
     //console.log(user.name)
     //check if all params are available
     if(!email){
-        return  res.status(401).send('all inputs are required');
+        return  res.status(201).send('all inputs are required');
     }
     //check if user already exists
     const existingUser = await User.findOne({email});
@@ -43,7 +39,7 @@ router.post('/',async (req,res,next)=>{
     //console.log(existingUser)
 
     if(existingUser){
-        return res.status(401).send('User already exists, please log in');
+        return res.status(201).send('User already exists, please log in');
     }
     //sign a token and encrypt password
     const encryptpassword = await bcrypt.hash(user.password,10);
@@ -57,8 +53,6 @@ router.post('/',async (req,res,next)=>{
             }
         )
         //console.log(token)
-        //create a user
-        //db('Keja').collection('users).insertOne
         const newUser = await User.create({
             name: user.name ,
             email: email,
@@ -78,35 +72,36 @@ router.post('/',async (req,res,next)=>{
         })
         //console.log(newUser)
         //send email for verification
-        // let mailOptions = {
-        //     from: 'keja.app@outlook.com',
-        //     to: email,
-        //     subject: 'Welcome to our Keja Community ',
-        //     text:`Click the link to complete verifying your account link: https://www.keja.app/verify/${email}`
-        // };
-
-        // transporter.sendMail(mailOptions,
-        //     function(error,info){
-        //         if(error){
-        //             console.log(error);
-        //         }
-        //         return res.status(200)
-        //     //    return console.log('Email sent:')
-        //     })
-        const msg = {
+        let mailOptions = {
+            from: 'keja.app@outlook.com',
             to: email,
-            from: "keja.app@outlook.com",
-            subject: 'Verify your Keja user account',
-            text: `Click the link to complete verifying your account link: https://www.keja.app/verify/${email}`,
-            html: "<p>Welcome to our Keja Community, Keep tuned for listings and amazing offers </p>"
-        }
-        sgMail.send(msg);
+            subject: 'Keja App Account Registration',
+            text:"find us at https://www.keja.app/",
+            html: ` <img src='http://res.cloudinary.com/www-keja-app/image/upload/v1657104669/a8uwwg8mtnjutti2bzqh.jpg' /> <br/> <h1> Hi, ${user.name}! Welcome to the Keja Community. </h1> <br/> <p> Thank you for signing up and we are thrilled to have you join us on our journey. </p> <br/> <p> You can discover, search and find apartments at the comfort of your home. </p> <br/> <p> Click the link to complete the registration by verifying your account.</p> <br/> <p> https://www.keja.app/verify/${email}</p>`,
+        };
+
+        transporter.sendMail(mailOptions,
+            function(error,info){
+                if(error){
+                    console.log(error);
+                }
+                return res.status(200)
+            //    return console.log('Email sent:')
+            })
+        // const msg = {
+        //     to: email,
+        //     from: "keja.app@outlook.com",
+        //     subject: 'Verify your Keja user account',
+        //     text: `Click the link to complete verifying your account link: https://www.keja.app/verify/${email}`,
+        //     html: "<p>Welcome to our Keja Community, Keep tuned for listings and amazing offers </p>"
+        // }
+        // sgMail.send(msg);
         res.status(200).json(newUser.access_token)
         //console.log(newUser.access_token);
     }catch(err){
-        res.status(400).send('Could not sign up user, try again')
+        res.status(201).send('Could not sign up user, try again')
     }
-    res.status(200);
+    return res.status(200);
 });
 
 router.post('/google',async (req,res)=>{

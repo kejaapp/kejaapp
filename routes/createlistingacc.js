@@ -10,19 +10,22 @@ router.post('/',async (req,res)=>{
     //check if email exists
     const user = await User.findOne({email:email});
     if(!user){
-        return res.status(401).send('no account found please log in');
+        return res.status(201).send('no account found please log in');
     }
     //updtate tier
+    if(user.tier === 'listing'){
+        return res.status(201).send('This account already exists, Kindly login ')
+    }
     try{
         const query = {email:email};
         const update = { $set: {tier:'listing'}};
         const options = { };
         
         db.collection('users').updateOne( query, update, options);
-        return res.status(200).send('verification successful');
+        return res.status(200).send('Listing account created successful');
     }catch(err){
         //console.log(err)
-        return res.status(401).send('couldnt register lister')
+        return res.status(201).send('couldnt register lister')
     }
 
 })

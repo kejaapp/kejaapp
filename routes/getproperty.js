@@ -11,7 +11,7 @@ router.post('/', async(req,res)=>{
         return res.status(401).send('no id found')
     }
     const property = await Property.findOne({_id:id});
-    //console.log(property)
+    console.log(property)
     return res.status(200).json(property)
     //return property
 });

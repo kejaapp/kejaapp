@@ -16,6 +16,8 @@ const PropertySchema = new mongoose.Schema({
     amenities:          { type: String},
     policies:           { type: String},
     images:             [{ type: String}],
+    reviews:            [ { name: String,
+                            body: String}],
     registration:       { type: Boolean},
     verified:           { type: Boolean},
     likes:              { type: Number, default: 0},

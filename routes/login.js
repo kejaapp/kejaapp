@@ -13,10 +13,13 @@ router.post('/', async(req,res)=>{
     //find user exists
     const email = user.email;
     if(!(user)){
-        return res.status(401).send('all inputs are required');
+        return res.status(201).send('all inputs are required');
     }
     const existingUser = await User.findOne({email:email});
     //console.log(existingUser);
+    if(!existingUser){
+        return res.status(201).send('no account found please register an account or check your email')
+    }
     let id = existingUser._id
     //compare passwords
     if(existingUser && bcrypt.compare(user.password , existingUser.password)){
@@ -42,7 +45,7 @@ router.post('/', async(req,res)=>{
             console.log(err)
         }
     }
-    return res.status(401).send('No account found please signUp');
+    return res.status(201).send('No account found please signUp');
 
 })
 

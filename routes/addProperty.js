@@ -13,14 +13,14 @@ router.post("/",async (req,res)=>{
     //console.log(property.code)
     //validate property
     if(!property){
-        return res.status(401).send('all inputs are required')
+        return res.status(201).send('all inputs are required')
     }
     //check if property exists
-    const existingproperty = await Property.findOne({name:property.name})
+    const existingproperty = await Property.findOne({location:property.propertyPosition})
     
-    //console.log(existingproperty)
-    if(existingproperty && existingproperty === null){
-        return res.status(401)
+    console.log(existingproperty)
+    if(existingproperty ){
+        return res.status(201).send('This property already exists, contact support for any enquiries')
     }
     //create property
     const newproperty = await Property.create({
@@ -40,6 +40,7 @@ router.post("/",async (req,res)=>{
         images:property.newimagearray,
         registration:false,
         verified:false,
+        reviews:[],
         likes:0,
         sponsored:false,
         visitedcount:0,
