@@ -4,6 +4,7 @@ require('dotenv').config();
 require('./config/database.js').connect();
 
 const app = express();
+
 app.use(express.json())
 //routes import 
 const signup = require('./routes/signup.js');
@@ -34,7 +35,7 @@ const dev = ()=>{
     
 }
 
-app.use(cors());
+app.use(cors(origin:'https://www.keja.app'));
 
 /*
 House Hunters Api's
