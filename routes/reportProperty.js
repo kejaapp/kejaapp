@@ -1,8 +1,6 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 
-const client = require('twilio')(accountSid, authToken);
-
 const router = express.Router();
 
 router.post('/',async(req,res)=>{
