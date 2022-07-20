@@ -1,5 +1,9 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
+require('dotenv').config();
+
+const useremail = process.env.EMAIL;
+const password = process.env.PASS
 
 const router = express.Router();
 
@@ -18,8 +22,8 @@ router.post('/',async(req,res)=>{
         secure: true, // TLS requires secureConnection to be false
         port: 465, // port for secure SMTP
         auth: {
-            user: 'keja.appp@gmail.com',
-            pass: 'nickelodeon@77'
+            user: useremail,
+            pass: password
         }
     });
     let mailOptions = {

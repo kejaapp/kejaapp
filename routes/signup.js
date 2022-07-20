@@ -5,8 +5,11 @@ const jwt = require('jsonwebtoken');
 const {OAuth2Client} = require('google-auth-library');
 const { VerifyGoogleAuthToken } = require('../middleware/googleauth');
 const nodemailer = require('nodemailer');
-
 require('dotenv').config();
+
+const useremail = process.env.EMAIL;
+const password = process.env.PASS
+
 
 let router = express.Router()
 
@@ -16,8 +19,8 @@ router.post('/',async (req,res,next)=>{
         secure: true, // TLS requires secureConnection to be false
         port: 465, // port for secure SMTP
         auth: {
-            user: 'keja.appp@gmail.com',
-            pass: 'nickelodeon@77'
+            user: useremail,
+            pass: password
         }
     });
 
