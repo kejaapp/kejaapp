@@ -21,12 +21,12 @@ router.post('/',async(req,res)=>{
         ciphers:'SSLv3'
         },
         auth: {
-            user: 'keja.app@outlook.com',
+            user: 'keja.appp@gmail.com',
             pass: 'nickelodeon@77'
         }
     });
     let mailOptions = {
-            from: 'keja.app@outlook.com',
+            from: 'keja.appp@gmail.com',
             to: "sammymusembi77@gmail.com",
             subject: 'report Listed property',
             text:` email : ${report.email}, date: ${report.date}, houseId: ${report.Hid}, phone: ${report.mobile}, complaint: ${report.body} `

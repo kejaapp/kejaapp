@@ -19,7 +19,7 @@ router.post('/',async (req,res,next)=>{
         ciphers:'SSLv3'
         },
         auth: {
-            user: 'keja.app@outlook.com',
+            user: 'keja.appp@gmail.com',
             pass: 'nickelodeon@77'
         }
     });

@@ -15,12 +15,12 @@ let transporter = nodemailer.createTransport({
         ciphers:'SSLv3'
         },
         auth: {
-            user: 'keja.app@outlook.com',
+            user: 'keja.appp@gmail.com',
             pass: 'nickelodeon@77'
         }
     });
     let mailOptions = {
-            from: 'keja.app@outlook.com',
+            from: 'keja.appp@gmail.com',
             to: "sammymusembi77@gmail.com",
             subject: 'Booking Request',
             text:` email : ${request.email}, date: ${request.date}, houseId: ${request.Hid}, phone: ${request.mobile}, content: ${request.body} `
