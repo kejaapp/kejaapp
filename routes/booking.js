@@ -25,14 +25,14 @@ let transporter = nodemailer.createTransport({
             subject: 'Booking Request',
             text:` email : ${request.email}, date: ${request.date}, houseId: ${request.Hid}, phone: ${request.mobile}, content: ${request.body} `
         };
-        let mailOptions1 = {
-            from: 'keja.app@outlook.com',
-            to: report.email,
-            subject: 'Report submitted successfully',
-            text:`Your request has been received we will contact you as soon as possible, incase of any queries call us or whatsapp us at 0771712005. Thank you for being a wonderful customer`
-        };
+        // let mailOptions1 = {
+        //     from: 'keja.app@outlook.com',
+        //     to: report.email,
+        //     subject: 'Report submitted successfully',
+        //     text:`Your request has been received we will contact you as soon as possible, incase of any queries call us or whatsapp us at 0771712005. Thank you for being a wonderful customer`
+        // };
 
-        transporter.sendMail(mailOptions,mailOptions1,
+        transporter.sendMail(mailOptions,
             function(error,info){
                 if(error){
                     console.log(error);
