@@ -1,7 +1,5 @@
 const express = require('express');
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const mobile = process.env.TWILIO_MOBILE;
+const nodemailer = require('nodemailer');
 
 const client = require('twilio')(accountSid, authToken);
 
@@ -16,15 +14,49 @@ router.post('/',async(req,res)=>{
 	if(!report.email && !report.mobile){
 		return res.status(201).send('please provide an email or a contact')
 	}
-	//send a whatsapp message
-	client.messages
-      .create({body: ` email : ${report.email}, date: ${report.date}, houseId: ${report.Hid}, phone: ${report.mobile}, complaint: ${report.body} `, from: `${mobile}`, to: '+254759233322'})
-      .then(message => console.log(message.sid));
+	//send a email message
+	let transporter = nodemailer.createTransport({
+        host: "smtp-mail.outlook.com", // hostname
+        secureConnection: true, // TLS requires secureConnection to be false
+        port: 587, // port for secure SMTP
+        tls: {
+        ciphers:'SSLv3'
+        },
+        auth: {
+            user: 'keja.app@outlook.com',
+            pass: 'nickelodeon@77'
+        }
+    });
+    let mailOptions = {
+            from: 'keja.app@outlook.com',
+            to: "sammymusembi77@gmail.com",
+            subject: 'report Listed property',
+            text:` email : ${report.email}, date: ${report.date}, houseId: ${report.Hid}, phone: ${report.mobile}, complaint: ${report.body} `
+        };
 
-    client.messages
-      .create({body:'Your complaint has been submitted it shall be reviewed. Sorry for any inconvinence and thank you for being part of our Keja community' , from: `${mobile}`, to: `${report.mobile}`})
-      .then(message => console.log(message.sid));
+        transporter.sendMail(mailOptions,
+            function(error,info){
+                if(error){
+                    console.log(error);
+                }
+                return res.status(200)
+            //    return console.log('Email sent:')
+            })
+        let mailOptions = {
+            from: 'keja.app@outlook.com',
+            to: report.email,
+            subject: 'Report submitted successfully',
+            text:` Your complaint has been submitted it shall be reviewed. Sorry for any inconvinence and thank you for being part of our Keja community`
+        };
 
+        transporter.sendMail(mailOptions,
+            function(error,info){
+                if(error){
+                    console.log(error);
+                }
+                return res.status(200)
+            //    return console.log('Email sent:')
+            })
 	//return a res status
 })
 

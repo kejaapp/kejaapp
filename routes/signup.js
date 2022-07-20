@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const {OAuth2Client} = require('google-auth-library');
 const { VerifyGoogleAuthToken } = require('../middleware/googleauth');
 const nodemailer = require('nodemailer');
-const sgMail = require('@sendgrid/mail');
 
 require('dotenv').config();
 
@@ -88,14 +87,6 @@ router.post('/',async (req,res,next)=>{
                 return res.status(200)
             //    return console.log('Email sent:')
             })
-        // const msg = {
-        //     to: email,
-        //     from: "keja.app@outlook.com",
-        //     subject: 'Verify your Keja user account',
-        //     text: `Click the link to complete verifying your account link: https://www.keja.app/verify/${email}`,
-        //     html: "<p>Welcome to our Keja Community, Keep tuned for listings and amazing offers </p>"
-        // }
-        // sgMail.send(msg);
         res.status(200).json(newUser.access_token)
         //console.log(newUser.access_token);
     }catch(err){
