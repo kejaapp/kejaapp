@@ -8,7 +8,7 @@ router.post('/', async(req,res)=>{
     console.log(id);
     //look for existing property 
     if(!id){
-        return res.status(401).send('no id found')
+        res.status(401).send('no id found')
     }
     const property = await Property.findOne({_id:id});
     //console.log(property)
