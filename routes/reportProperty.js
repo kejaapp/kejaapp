@@ -34,22 +34,13 @@ router.post('/',async(req,res)=>{
             text:` email : ${report.email}, date: ${report.date}, houseId: ${report.Hid}, phone: ${report.mobile}, complaint: ${report.body} `
         };
 
-        transporter.sendMail(mailOptions,
-            function(error,info){
-                if(error){
-                    console.log(error);
-                }
-                return res.status(200)
-            //    return console.log('Email sent:')
-            })
-        let mailOptions = {
+		let mailOptions1 = {
             from: 'keja.app@outlook.com',
             to: report.email,
             subject: 'Report submitted successfully',
             text:` Your complaint has been submitted it shall be reviewed. Sorry for any inconvinence and thank you for being part of our Keja community`
         };
-
-        transporter.sendMail(mailOptions,
+        transporter.sendMail(mailOptions,mailOptions1,
             function(error,info){
                 if(error){
                     console.log(error);
