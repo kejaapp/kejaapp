@@ -10,7 +10,7 @@ router.post("/",async (req,res)=>{
     //get property details
     const { property } = req.body;
 
-    //console.log(property.code)
+    console.log(property)
     //validate property
     if(!property){
         return res.status(201).send('all inputs are required')
