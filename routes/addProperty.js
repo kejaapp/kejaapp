@@ -16,7 +16,7 @@ router.post("/",async (req,res)=>{
         return res.status(201).send('all inputs are required')
     }
     //check if property exists
-    const existingproperty = await Property.findOne({location:property.propertyPosition})
+    const existingproperty = await Property.findOne({location:property.name})
     
     console.log(existingproperty)
     if(existingproperty ){
