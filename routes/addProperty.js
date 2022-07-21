@@ -64,7 +64,7 @@ router.post("/",async (req,res)=>{
     }
     //get user with code
     //add count
-    //console.log(newproperty);
+    console.log('success');
     return res.status(200).json(newproperty)
 })
 

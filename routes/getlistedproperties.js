@@ -6,7 +6,7 @@ let router = express.Router()
 router.post('/',async(req,res)=>{
     //get email to request properties posted by account
     const { email } = req.body;
-    //console.log( email );
+    console.log( email );
     //use email to find properties
     try{
         const properties = await Property.find();
