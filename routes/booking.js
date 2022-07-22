@@ -10,11 +10,11 @@ const router = express.Router()
 router.post('/',async(req,res)=>{
 	const { request } = req.body;
 
-	//console.log(request)
+	console.log(request)
 let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com", // hostname
         secure: false, // TLS requires secureConnection to be false
-        port: 465, // port for secure SMTP
+        port: 587, // port for secure SMTP
         auth: {
             user: useremail,
             pass: password
