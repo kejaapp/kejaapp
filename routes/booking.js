@@ -34,7 +34,7 @@ router.post('/',async(req,res)=>{
 //         client.messages 
 
       client.messages
-      .create({body: ` email : ${request.email}, date: ${request.date}, houseId: ${request.Hid}, phone: ${request.mobile}, content: ${request.body} `, from: '+15017122661', to: '+15558675310'})
+      .create({body: ` email : ${request.email}, date: ${request.date}, houseId: ${request.Hid}, phone: ${request.mobile}, content: ${request.body} `, from: '+15017122661', to: '+254759233322'})
       .then(message => console.log(message.sid));
 
         // transporter.sendMail(mailOptions,
