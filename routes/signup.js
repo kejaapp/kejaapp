@@ -72,11 +72,11 @@ router.post('/',async (req,res,next)=>{
         //console.log(newUser)
         //send email for verification
         let mailOptions = {
-            from: 'keja.app@outlook.com',
+            from: 'keja.appp@gmail.com',
             to: email,
             subject: 'Keja App Account Registration',
             text:"find us at https://www.keja.app/",
-            html: ` <img src='http://res.cloudinary.com/www-keja-app/image/upload/v1657104669/a8uwwg8mtnjutti2bzqh.jpg' /> <br/> <h1> Hi, ${user.name}! Welcome to the Keja Community. </h1> <br/> <p> Thank you for signing up and we are thrilled to have you join us on our journey. </p> <br/> <p> You can discover, search and find apartments at the comfort of your home. </p> <br/> <p> Click the link to complete the registration by verifying your account.</p> <br/> <p> https://www.keja.app/verify/${email}</p>`,
+            html: ` <img src='https://res.cloudinary.com/www-keja-app/image/upload/v1658234186/m1ngnyqajjuwl2xzppbr.png' /> <br/> <h1> Hi, ${user.name}! Welcome to the Keja Community. </h1> <br/> <p> Thank you for signing up and we are thrilled to have you join us on our journey. </p> <br/> <p> You can discover, search and find apartments at the comfort of your home. </p> <br/> <p> Click the link to complete the registration by verifying your account.</p> <br/> <p> https://www.keja.app/verify/${email}</p>`,
         };
 
         transporter.sendMail(mailOptions,
