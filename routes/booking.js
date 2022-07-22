@@ -2,6 +2,7 @@ const express = require('express');
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
+const mobile = process.env.TWILIO_MOBILE;
 const client = require('twilio')(accountSid, authToken);
 
 require('dotenv').config();
@@ -34,7 +35,7 @@ router.post('/',async(req,res)=>{
 //         client.messages 
 
       client.messages
-      .create({body: ` email : ${request.email}, date: ${request.date}, houseId: ${request.Hid}, phone: ${request.mobile}, content: ${request.body} `, from: '+15017122661', to: '+254759233322'})
+      .create({body: ` email : ${request.email}, date: ${request.date}, houseId: ${request.Hid}, phone: ${request.mobile}, content: ${request.body} `, from: mobile, to: '+254759233322'})
       .then(message => console.log(message.sid));
 
         // transporter.sendMail(mailOptions,
