@@ -1,5 +1,9 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
+
 require('dotenv').config();
 
 const useremail = process.env.EMAIL;
@@ -10,38 +14,37 @@ const router = express.Router()
 router.post('/',async(req,res)=>{
 	const { request } = req.body;
 
-	console.log(request)
-    console.log(typeof(password))
-let transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com", // hostname
-        secure: true, // TLS requires secureConnection to be false
-        port: 465, // port for secure SMTP
-        auth: {
-            user: useremail,
-            pass: password
-        }
-    });
-    let mailOptions = {
-            from: 'keja.appp@gmail.com',
-            to: "sammymusembi77@gmail.com",
-            subject: 'Booking Request',
-            text:` email : ${request.email}, date: ${request.date}, houseId: ${request.Hid}, phone: ${request.mobile}, content: ${request.body} `
-        };
-        // let mailOptions1 = {
-        //     from: 'keja.app@outlook.com',
-        //     to: report.email,
-        //     subject: 'Report submitted successfully',
-        //     text:`Your request has been received we will contact you as soon as possible, incase of any queries call us or whatsapp us at 0771712005. Thank you for being a wonderful customer`
-        // };
+	// console.log(request)
+ //    console.log(typeof(password))
+// let transporter = nodemailer.createTransport({
+//         host: "smtp.gmail.com", // hostname
+//         secure: true, // TLS requires secureConnection to be false
+//         port: 465, // port for secure SMTP
+//         auth: {
+//             user: useremail,
+//             pass: password
+//         }
+//     });
+//     let mailOptions = {
+//             from: 'keja.appp@gmail.com',
+//             to: "sammymusembi77@gmail.com",
+//             subject: 'Booking Request',
+//             text:` email : ${request.email}, date: ${request.date}, houseId: ${request.Hid}, phone: ${request.mobile}, content: ${request.body} `
+//         };
+//         client.messages 
 
-        transporter.sendMail(mailOptions,
-            function(error,info){
-                if(error){
-                    console.log(error);
-                }
-                return res.status(200)
-            //    return console.log('Email sent:')
-            })
+      client.messages
+      .create({body: ` email : ${request.email}, date: ${request.date}, houseId: ${request.Hid}, phone: ${request.mobile}, content: ${request.body} `, from: '+15017122661', to: '+15558675310'})
+      .then(message => console.log(message.sid));
+
+        // transporter.sendMail(mailOptions,
+        //     function(error,info){
+        //         if(error){
+        //             console.log(error);
+        //         }
+        //         return res.status(200)
+        //     //    return console.log('Email sent:')
+        //     })
     return res.status(200)
 })
 
