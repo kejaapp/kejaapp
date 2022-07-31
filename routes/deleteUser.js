@@ -17,15 +17,16 @@ router.post("/",async (req,res)=>{
     const existinguser = await User.findOne({access_token:token})
     
     if(!existinguser && existinguser === null){
-        return res.status(401).send('no user found')
+        return res.status(201).send('no user found')
     }
     //console.log(existinguser.name)
     try{
         db.collection('users').findOneAndDelete({_id:existinguser._id} );
         //delete user
-        return res.status(200);
+        console.log('deleted')
+        res.status(200).send('success');
     }catch(err){
-        //console.log(err)
+        console.log(err)
     }
     return res.status(200)
 })

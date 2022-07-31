@@ -7,27 +7,17 @@ const { VerifyGoogleAuthToken } = require('../middleware/googleauth');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const useremail = process.env.EMAIL;
-const password = process.env.PASS
-
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const mobile = process.env.TWILIO_MOBILE;
+const client = require('twilio')(accountSid, authToken);
 
 let router = express.Router()
 
 router.post('/',async (req,res,next)=>{
-    let transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com", // hostname
-        secure: false, // TLS requires secureConnection to be false
-        port: 465, // port for secure SMTP
-        auth: {
-            user: useremail,
-            pass: password
-        }
-    });
-
     //get email,password,name from req.body
     const { user } = req.body;
     const email = user.email
-    //console.log(user.name)
     //check if all params are available
     if(!email){
         return  res.status(201).send('all inputs are required');
@@ -41,7 +31,9 @@ router.post('/',async (req,res,next)=>{
         return res.status(201).send('User already exists, please log in');
     }
     //sign a token and encrypt password
-    const encryptpassword = await bcrypt.hash(user.password,10);
+    const salt = bcrypt.genSaltSync(10);
+    const encryptpassword = bcrypt.hashSync(user.password, salt);
+    // const encryptpassword = await bcrypt.hash(user.password,10);
     //console.log(encryptpassword)
     try{
         const token = jwt.sign(
@@ -71,23 +63,38 @@ router.post('/',async (req,res,next)=>{
         })
         //console.log(newUser)
         //send email for verification
-        let mailOptions = {
-            from: 'keja.appp@gmail.com',
-            to: email,
-            subject: 'Keja App Account Registration',
-            text:"find us at https://www.keja.app/",
-            html: ` <img src='https://res.cloudinary.com/www-keja-app/image/upload/v1658234186/m1ngnyqajjuwl2xzppbr.png' /> <br/> <h1> Hi, ${user.name}! Welcome to the Keja Community. </h1> <br/> <p> Thank you for signing up and we are thrilled to have you join us on our journey. </p> <br/> <p> You can discover, search and find apartments at the comfort of your home. </p> <br/> <p> Click the link to complete the registration by verifying your account.</p> <br/> <p> https://www.keja.app/verify/${email}</p>`,
-        };
+        client.messages
+          .create({body: `Welcome ${user.name}, to the keja community.
 
-        transporter.sendMail(mailOptions,
-            function(error,info){
-                if(error){
-                    console.log(error);
-                }
-                return res.status(200)
-            //    return console.log('Email sent:')
-            })
-        res.status(200).json(newUser.access_token)
+Are you a Landlord or an agent? 
+Market your apartment in minutes for FREE and let tenants find you easily . Click the link below to start.
+https://www.keja.app/listing
+
+Are you a student? 
+Help us grow our platform by reviewing your apartment or earn by referring your landlord to us and get redeemable tokens. Click the link below to learn more.
+https://www.keja.app/help/refer
+
+For any inquiries email us or contact us at +254771712005 ,call,sms,whatsapp us.`, from: mobile, to: `+254${user.mobile}`})
+          .then(message => console.log(message.sid));
+        // const msg = {
+        //     to: email,
+        //     from: "keja.appp@gmail.com",
+        //     subject: "Welcome to keja community",
+        //     text:"find us at https://www.keja.app/",
+        //     html: ` <img src='https://res.cloudinary.com/www-keja-app/image/upload/v1658234186/m1ngnyqajjuwl2xzppbr.png' /> <br/> <h1> Hi, ${user.name}! Welcome to the Keja Community. </h1> <br/> <p> We are thrilled to have you join us on our journey. </p> <br/> <p> You can discover, search and find apartments at the comfort of your home. </p> <br/> <p> Click the link to complete the registration by verifying your account.</p> <br/> <p> https://www.keja.app/verify/${email}</p>`,
+        // };
+        // console.log(msg)
+        // sgMail.send(msg)
+        //   .then((response) => {
+        //     console.log(response)
+        //     console.log(response[0].statusCode)
+        //     console.log(response[0].headers)
+        //   })
+        //   .catch((error) => {
+        //     console.error(error)
+        //   })
+       
+        return res.status(200).json(newUser.access_token)
         //console.log(newUser.access_token);
     }catch(err){
         res.status(201).send('Could not sign up user, try again')

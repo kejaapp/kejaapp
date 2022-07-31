@@ -13,7 +13,7 @@ router.post('/',async(req,res)=>{
         //applying query params to get results
         const response = (properties?.sort((a,b)=> Number(b.sponsored) - Number(a.sponsored))
                                      .filter((item)=>
-                                        item.school?.includes(query.school? query.school : "") && item.type?.includes(query.type? query.type : "") && item.area?.includes(query.area? query.area : "") && item.price?.toString().includes(query.price? query.price : "") 
+                                        item.school?.includes(query.school? query.school : "") && item.type?.includes(query.type? query.type : "") && item.area?.includes(query.area? query.area : "") && item.price?.toString().includes(query.price? query.price : "") && item.name?.toLowerCase().includes(query.value? query.value : "") 
                                     ));
         // console.log(response)
         return res.status(200).json(response)

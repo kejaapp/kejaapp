@@ -20,7 +20,7 @@ router.post("/",async(req,res)=>{
     if(!existingproperty && existingproperty === null){
         return res.status(401).send('no property found, could not add this review')
     }
-    console.log(existingproperty)
+    //console.log(existingproperty)
     //update property id
     reviewitem = {
         'email': review.email,

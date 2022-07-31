@@ -5,7 +5,7 @@ const PropertySchema = new mongoose.Schema({
     email:              { type : String},
     price:              { type: Number},
     type:               { type: String},
-    code:               { type: String},
+    code:               { type: String},//refcode
     school:             { type: String},
     area:               { type: String},
     size:               { type: String},

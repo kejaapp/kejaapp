@@ -10,7 +10,7 @@ router.post("/",async (req,res)=>{
     //get property details
     const { property } = req.body;
 
-    console.log(property)
+    //console.log(property)
     //validate property
     if(!property){
         return res.status(201).send('all inputs are required')
@@ -18,7 +18,7 @@ router.post("/",async (req,res)=>{
     //check if property exists
     const existingproperty = await Property.findOne({location:property.name})
     
-    console.log(existingproperty)
+    //console.log(existingproperty)
     if(existingproperty ){
         return res.status(201).send('This property already exists, contact support for any enquiries')
     }

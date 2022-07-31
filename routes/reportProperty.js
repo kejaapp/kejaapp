@@ -1,9 +1,10 @@
 const express = require('express');
-const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const useremail = process.env.EMAIL;
-const password = process.env.PASS
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const mobile = process.env.TWILIO_MOBILE;
+const client = require('twilio')(accountSid, authToken);
 
 const router = express.Router();
 
@@ -11,36 +12,15 @@ router.post('/',async(req,res)=>{
 	//get the context
 	const { report } = req.body;
 	
-	console.log(report)
+	//console.log(report)
 	//send an email
 	if(!report.email && !report.mobile){
 		return res.status(201).send('please provide an email or a contact')
 	}
 	//send a email message
-	let transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com", // hostname
-        secure: false, // TLS requires secureConnection to be false
-        port: 465, // port for secure SMTP
-        auth: {
-            user: useremail,
-            pass: password
-        }
-    });
-    let mailOptions = {
-            from: 'keja.appp@gmail.com',
-            to: "sammymusembi77@gmail.com",
-            subject: 'report Listed property',
-            text:` email : ${report.email}, date: ${report.date}, houseId: ${report.Hid}, phone: ${report.mobile}, complaint: ${report.body} `
-        };
-        transporter.sendMail(mailOptions,
-            function(error,info){
-                if(error){
-                    console.log(error);
-                }
-                return res.status(200)
-            //    return console.log('Email sent:')
-            })
-	//return a res status
+	client.messages
+      .create({body: ` email : ${report.email}, date: ${report.date}, houseId: ${report.Hid}, phone: ${report.mobile}, complaint: ${report.body} `, from: mobile, to: '+254759233322'})
+      .then(message => console.log(message.sid));
 })
 
 module.exports = router;

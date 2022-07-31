@@ -16,13 +16,13 @@ router.post('/', async(req,res)=>{
         return res.status(201).send('all inputs are required');
     }
     const existingUser = await User.findOne({email:email});
-    //console.log(existingUser);
+    console.log(user.password);
     if(!existingUser){
-        return res.status(201).send('no account found please register an account or check your email')
+        return res.status(201).send('no account found please register an account or enter the right email')
     }
     let id = existingUser._id
     //compare passwords
-    if(existingUser && bcrypt.compare(user.password , existingUser.password)){
+    if(bcrypt.compareSync(user.password , existingUser.password)){
         //create a refresh token
         const token = jwt.sign(
             {email,id},
@@ -45,7 +45,7 @@ router.post('/', async(req,res)=>{
             console.log(err)
         }
     }
-    return res.status(201).send('No account found please signUp');
+    return res.status(201).send('Wrong password, please try again');
 
 })
 

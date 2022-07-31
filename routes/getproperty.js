@@ -5,8 +5,6 @@ let router = express.Router();
 router.post('/', async(req,res)=>{
     //get property id from header/
     const { id } = req.body;
-    console.log(id);
-    console.log(id)
     //look for existing property 
     if(!id){
         res.status(201).send('no id found')

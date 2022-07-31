@@ -19,7 +19,7 @@ router.post('/', async(req,res)=>{
         //create a refresh token
         return res.status(200).send('successfully logged in');
     }
-    return res.status(401).send('No account found please create a listing account');
+    return res.status(201).send('No account found please create a listing account');
 
 })
 

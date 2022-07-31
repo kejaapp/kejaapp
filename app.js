@@ -23,6 +23,9 @@ const deleteUser = require('./routes/deleteUser.js');
 const reportProperty = require('./routes/reportProperty.js');
 const addReview = require('./routes/addReview.js');
 const booking = require('./routes/booking.js');
+const recommend = require('./routes/recommendproperty.js');
+const edituser = require('./routes/editUserinfo.js');
+const promoteproperty = require('./routes/promoteproperty.js');
 
 const dev = ()=>{
     let status = 'live';
@@ -36,7 +39,7 @@ const dev = ()=>{
 }
 
 app.use(cors({credentials:true, 
-    origin: "https://www.keja.app"}));
+    origin: 'https://www.keja.app'}));
 
 /*
 House Hunters Api's
@@ -57,7 +60,8 @@ app.use('/api/reportproperty',reportProperty)
 app.use('/api/addreview',addReview)
 //book apartment
 app.use('/api/bookapartment',booking)
-
+//edit user info
+app.use('/api/editprofile',edituser)
 /*
     Listing a property Apis
 */
@@ -73,7 +77,8 @@ app.use('/api/postproperty',addProperty);
 app.use('/api/editproperty',editProperty);
 //delete property
 app.use('/api/deleteproperty',deleteProperty);
-
+//promote property
+app.use('/api/promoteproperty',promoteproperty)
 /*
     Property Api's
 */
@@ -82,7 +87,8 @@ app.use('/api/deleteproperty',deleteProperty);
 app.use('/api/getproperties',getproperties);
 //get a specific property
 app.use('/api/getproperty',getproperty);
-
+//recommend // suggest properties
+app.use('/api/recommendproperty',recommend);
 
 app.get('/',(req,res)=>{
     res.send('success')

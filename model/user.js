@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
     //main data required
-    name:       { type: String},
+    name:           { type: String},
     email:          { type:  String, unique: true},
     password:       { type: String},
     access_token:   { type:  String},//will be used to authenticate user token will be stored in front-end
