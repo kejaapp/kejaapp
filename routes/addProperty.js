@@ -47,13 +47,8 @@ router.post("/",async (req,res,next)=>{
             code: property.code,
         });
         console.log(newproperty)
-        res.sendStatus(200)
-    }catch(err){
-        console.log(err)
-        return res.status(201).send("We could not add this property try again or contact support")
-    }
-    
-    //add referral count to referrer
+        
+         //add referral count to referrer
     if(property.code !== ''){
         try{
             const user = await User.findOne({code:property.code});
@@ -70,11 +65,17 @@ router.post("/",async (req,res,next)=>{
             console.log(err)
         }
     }
-    
-    //get user with code
-    //add count
     console.log('success');
     return res.status(200)
+    }catch(err){
+        console.log(err)
+        return res.status(201).send("We could not add this property try again or contact support")
+    }
+    
+   
+    //get user with code
+    //add count
+    
     }
     return res.status(201).send('This property already exists, contact support for any enquiries')
     
