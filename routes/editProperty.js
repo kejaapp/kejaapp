@@ -10,14 +10,14 @@ router.post("/",async (req,res)=>{
     //console.log(editedproperty.id)
     //validate property
     if(!editedproperty){
-        return res.status(401).send('all inputs are required')
+        return res.status(201).send('all inputs are required')
     }
     //check if property exists
     const existingproperty = await Property.findOne({_id:editedproperty.id})
     
     //console.log(existingproperty.email)
     if(!existingproperty && existingproperty === null){
-        return res.status(401).send('no property found')
+        return res.status(201).send('no property found')
     }
     //update property id
     try{

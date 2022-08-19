@@ -15,7 +15,7 @@ router.post('/',async(req,res)=>{
     if(user){
         return res.status(200).json(user);
     }
-    return res.status(401).send('failed')
+    return res.status(201).send('failed to get user profile')
 
 })
 

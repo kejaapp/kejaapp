@@ -16,7 +16,7 @@ router.post('/', async(req,res)=>{
         return res.status(201).send('all inputs are required');
     }
     const existingUser = await User.findOne({email:email});
-    console.log(user.password);
+    //console.log(user.password);
     if(!existingUser){
         return res.status(201).send('no account found please register an account or enter the right email')
     }
