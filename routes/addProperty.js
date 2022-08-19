@@ -66,7 +66,7 @@ router.post("/",async (req,res,next)=>{
         }
     }
     console.log('success');
-    return res.status(200)
+    return res.status(200).json(newproperty)
     }catch(err){
         console.log(err)
         return res.status(201).send("We could not add this property try again or contact support")
