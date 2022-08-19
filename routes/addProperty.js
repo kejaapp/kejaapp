@@ -74,7 +74,7 @@ router.post("/",async (req,res,next)=>{
     //get user with code
     //add count
     console.log('success');
-    return res.sendStatus(200)
+    return res.status(200)
     }
     return res.status(201).send('This property already exists, contact support for any enquiries')
     
