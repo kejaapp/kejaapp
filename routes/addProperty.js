@@ -47,6 +47,7 @@ router.post("/",async (req,res,next)=>{
             code: property.code,
         });
         console.log(newproperty)
+        return res.status(200)
     }catch(err){
         console.log(err)
         return res.status(201).send("We could not add this property try again or contact support")
@@ -73,7 +74,6 @@ router.post("/",async (req,res,next)=>{
     //get user with code
     //add count
     console.log('success');
-    return res.status(200)
     }
     return res.status(201).send('This property already exists, contact support for any enquiries')
     
