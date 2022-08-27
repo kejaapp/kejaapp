@@ -6,7 +6,7 @@ let router = express.Router()
 router.post('/',async(req,res)=>{
     //get query params
     const { query } = req.body;
-    //console.log( query );
+    console.log( query );
     //use query to find properties
     try{
         const properties = await Property.find();
