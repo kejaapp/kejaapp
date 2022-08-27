@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const PropertySchema = new mongoose.Schema({
     name:               { type: String},
     email:              { type : String},
-    price:              { type: Number},
+    price:              { type: String},
     type:               { type: String},
     code:               { type: String},//refcode
     school:             { type: String},

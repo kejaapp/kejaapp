@@ -39,7 +39,7 @@ const dev = ()=>{
 }
 
 app.use(cors({credentials:true, 
-    origin: 'https://www.keja.app'}));
+    origin: 'http://localhost:3000'}));
 
 /*
 House Hunters Api's
